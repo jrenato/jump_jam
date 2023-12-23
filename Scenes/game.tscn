@@ -16,15 +16,3 @@ position = Vector2(270, 850)
 
 [node name="PlatformsParent" type="Node2D" parent="."]
 unique_name_in_owner = true
-
-[node name="Platform" parent="PlatformsParent" instance=ExtResource("3_qngdu")]
-position = Vector2(-4, 920)
-
-[node name="Platform2" parent="PlatformsParent" instance=ExtResource("3_qngdu")]
-position = Vector2(134, 920)
-
-[node name="Platform3" parent="PlatformsParent" instance=ExtResource("3_qngdu")]
-position = Vector2(272, 920)
-
-[node name="Platform4" parent="PlatformsParent" instance=ExtResource("3_qngdu")]
-position = Vector2(410, 920)
