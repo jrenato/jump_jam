@@ -1,11 +1,19 @@
 extends Node2D
 
+@export_group("Level Generation")
+@export var platform_width: int = 136
+@export var ground_y_offset: int = 62
+@export var y_distance_between_platforms: int = 100
+@export var level_size: int = 50
+
+@export_group("External Scenes")
 @export var camera_scene: PackedScene
 @export var platform_scene: PackedScene
-@export var ground_y_offset: int = 62
 
 var camera: GameCamera
 var viewport_size: Vector2
+var start_platform_y: int
+var max_x_position: int
 
 @onready var player: Player = %Player
 @onready var platforms_parent: Node2D = %PlatformsParent
@@ -13,12 +21,17 @@ var viewport_size: Vector2
 
 func _ready() -> void:
 	viewport_size = get_viewport_rect().size
+	max_x_position = floor(viewport_size.x - platform_width)
+	
+	create_camera()
+	create_ground_platforms()
+	create_level_platforms()
 
+
+func create_camera() -> void:
 	camera = camera_scene.instantiate() as GameCamera
 	camera.setup_camera(player)
 	add_child(camera)
-
-	create_ground_platforms()
 
 
 func _process(delta: float) -> void:
@@ -39,9 +52,19 @@ func create_platform(location: Vector2) -> Platform:
 
 
 func create_ground_platforms() -> void:
-	var platform_width: int = 136
 	var ground_platform_count: int = floor(viewport_size.x / platform_width) + 1
 
 	for i in ground_platform_count:
-		var ground_location: Vector2 = Vector2(platform_width * i, viewport_size.y - ground_y_offset)
+		var ground_location: Vector2 = Vector2.ZERO
+		ground_location.x = platform_width * i
+		ground_location.y = viewport_size.y - ground_y_offset
 		create_platform(ground_location)
+
+
+func create_level_platforms() -> void:
+	start_platform_y = viewport_size.y - floor(y_distance_between_platforms * 2)
+	for i in level_size:
+		var location: Vector2 = Vector2.ZERO
+		location.x = randf_range(0, max_x_position)
+		location.y = start_platform_y - (y_distance_between_platforms * i)
+		create_platform(location)
