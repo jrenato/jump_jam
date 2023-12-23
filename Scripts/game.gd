@@ -14,4 +14,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
+	if Input.is_action_just_pressed("reset"):
+		get_tree().reload_current_scene()
