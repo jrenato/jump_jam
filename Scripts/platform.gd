@@ -1,4 +1,4 @@
-extends Area2D
+class_name Platform extends Area2D
 
 
 func _ready() -> void:
