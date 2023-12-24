@@ -5,3 +5,11 @@
 [node name="GameCamera" type="Camera2D"]
 position = Vector2(270, 480)
 script = ExtResource("1_k1x4c")
+
+[node name="Destroyer" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="DestroyerShape" type="CollisionShape2D" parent="Destroyer"]
+unique_name_in_owner = true
