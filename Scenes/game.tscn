@@ -8,10 +8,7 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_qbmco")
 camera_scene = ExtResource("2_p8bj4")
+player_scene = ExtResource("2_xx8od")
 
-[node name="Player" parent="." instance=ExtResource("2_xx8od")]
+[node name="LevelGenerator" parent="." instance=ExtResource("5_wb74r")]
 unique_name_in_owner = true
-position = Vector2(270, 850)
-
-[node name="LevelGenerator" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_wb74r")]
-player = NodePath("../Player")

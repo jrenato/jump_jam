@@ -1,6 +1,5 @@
-extends Node2D
+class_name LevelGenerator extends Node2D
 
-@export var player: Player
 @export var platform_scene: PackedScene = preload("res://Scenes/platform.tscn")
 @export var platform_width: int = 136
 @export var ground_y_offset: int = 62
@@ -8,6 +7,7 @@ extends Node2D
 @export var start_level_size: int = 10
 @export var threshold_margin_count: int = 6
 
+var player: Player
 var viewport_size: Vector2
 var start_platform_y: int
 var max_x_position: int

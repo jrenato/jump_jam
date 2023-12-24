@@ -1,20 +1,34 @@
 extends Node2D
 
 @export var camera_scene: PackedScene
+@export var player_scene: PackedScene
+@export var player_spawn_y_offset: float = 135.0
 
 var camera: GameCamera
+var player: Player
+var player_spawn_position: Vector2
 
-@onready var player: Player = %Player
+@onready var level_generator: LevelGenerator = %LevelGenerator
 
 
 func _ready() -> void:
-	create_camera()
+	var viewport_size: Vector2 = get_viewport_rect().size
+	player_spawn_position.x = viewport_size.x / 2.0
+	player_spawn_position.y = viewport_size.y - player_spawn_y_offset
+
+	new_game()
 
 
-func create_camera() -> void:
+func new_game() -> void:
+	player = player_scene.instantiate() as Player
+	add_child(player)
+	player.global_position = player_spawn_position
+
 	camera = camera_scene.instantiate() as GameCamera
 	camera.setup_camera(player)
 	add_child(camera)
+
+	level_generator.player = player
 
 
 func _process(delta: float) -> void:
