@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7xtdsjhq8qa8"]
+[gd_scene load_steps=9 format=3 uid="uid://c7xtdsjhq8qa8"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_qbmco"]
 [ext_resource type="PackedScene" uid="uid://bhti1duiqs5e1" path="res://Scenes/game_camera.tscn" id="2_p8bj4"]
 [ext_resource type="PackedScene" uid="uid://ci4vt7vuqoxw2" path="res://Scenes/player.tscn" id="2_xx8od"]
 [ext_resource type="Texture2D" uid="uid://166dysd3l837" path="res://Assets/Textures/Background/Ground.png" id="5_duif1"]
 [ext_resource type="PackedScene" uid="uid://dy6bpra3nvnx1" path="res://Scenes/level_generator.tscn" id="5_wb74r"]
+[ext_resource type="Texture2D" uid="uid://c3f63n445pvi7" path="res://Assets/Textures/Background/Layer1.png" id="6_sjnqt"]
+[ext_resource type="Texture2D" uid="uid://w2l6pu7x37s4" path="res://Assets/Textures/Background/Layer2.png" id="7_1obxn"]
+[ext_resource type="Texture2D" uid="uid://crpjl4q7gck60" path="res://Assets/Textures/Background/Layer3.png" id="8_bsn3b"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_qbmco")
@@ -20,3 +23,32 @@ offset = Vector2(0, -61)
 
 [node name="LevelGenerator" parent="." instance=ExtResource("5_wb74r")]
 unique_name_in_owner = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(0, 1935)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("6_sjnqt")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(0, 1935)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("7_1obxn")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.85, 0.85)
+motion_mirroring = Vector2(0, 1935)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+scale = Vector2(0.675, 0.675)
+texture = ExtResource("8_bsn3b")
+centered = false
