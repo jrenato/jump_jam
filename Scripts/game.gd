@@ -4,7 +4,8 @@ extends Node2D
 @export var platform_width: int = 136
 @export var ground_y_offset: int = 62
 @export var y_distance_between_platforms: int = 100
-@export var start_level_size: int = 50
+@export var start_level_size: int = 10
+@export var threshold_margin_count: int = 6
 
 @export_group("External Scenes")
 @export var camera_scene: PackedScene
@@ -40,6 +41,13 @@ func _process(delta: float) -> void:
 		get_tree().quit()
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
+
+	if player:
+		var player_y: float = player.global_position.y
+		var end_of_level_position: int = start_platform_y - (y_distance_between_platforms * generated_platform_count)
+		var threshold: int = end_of_level_position + (y_distance_between_platforms * threshold_margin_count)
+		if player_y <= threshold:
+			generate_level(end_of_level_position, false, start_level_size)
 
 
 func create_platform(location: Vector2) -> Platform:
