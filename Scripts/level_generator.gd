@@ -9,8 +9,8 @@ class_name LevelGenerator extends Node2D
 
 var player: Player
 var viewport_size: Vector2
-var start_platform_y: int
-var max_x_position: int
+var start_platform_y: float
+var max_x_position: float
 var generated_platform_count: int = 0
 
 @onready var platforms_parent: Node2D = %PlatformsParent
@@ -19,8 +19,8 @@ var generated_platform_count: int = 0
 func _ready() -> void:
 	viewport_size = get_viewport_rect().size
 
-	max_x_position = floor(viewport_size.x - platform_width)
-	start_platform_y = viewport_size.y - floor(y_distance_between_platforms * 2)
+	max_x_position = viewport_size.x - platform_width
+	start_platform_y = viewport_size.y - (y_distance_between_platforms * 2)
 
 	generate_level(start_platform_y, true, start_level_size)
 
@@ -30,8 +30,8 @@ func _process(delta: float) -> void:
 		return
 
 	var player_y: float = player.global_position.y
-	var end_of_level_position: int = start_platform_y - (y_distance_between_platforms * generated_platform_count)
-	var threshold: int = end_of_level_position + (y_distance_between_platforms * threshold_margin_count)
+	var end_of_level_position: float = start_platform_y - (y_distance_between_platforms * generated_platform_count)
+	var threshold: float = end_of_level_position + (y_distance_between_platforms * threshold_margin_count)
 	if player_y <= threshold:
 		generate_level(end_of_level_position, false, start_level_size)
 
@@ -48,7 +48,7 @@ func create_platform(location: Vector2, platform_name: String) -> Platform:
 
 
 func create_ground_platforms() -> void:
-	var ground_platform_count: int = floor(viewport_size.x / platform_width) + 1
+	var ground_platform_count: float = (viewport_size.x / platform_width) + 1
 
 	for i in ground_platform_count:
 		var ground_location: Vector2 = Vector2.ZERO

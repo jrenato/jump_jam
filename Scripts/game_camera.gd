@@ -12,9 +12,9 @@ func _ready() -> void:
 	viewport_size = get_viewport_rect().size
 	global_position.x = viewport_size.x / 2.0
 
-	limit_bottom = floor(viewport_size.y)
+	limit_bottom = int(viewport_size.y)
 	limit_left = 0
-	limit_right = floor(viewport_size.x)
+	limit_right = int(viewport_size.x)
 
 	destroyer.position.y = viewport_size.y
 	var rectangle_shape: RectangleShape2D = RectangleShape2D.new()
@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 		return
 
 	if limit_bottom > player.global_position.y + limit_distance:
-		limit_bottom = floor(player.global_position.y + limit_distance)
+		limit_bottom = int(player.global_position.y + limit_distance)
 
 	var overlapping_areas: Array[Area2D] = destroyer.get_overlapping_areas()
 	for overlapping_area in overlapping_areas:
