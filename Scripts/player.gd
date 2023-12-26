@@ -8,13 +8,18 @@ class_name Player extends CharacterBody2D
 
 @export var screen_margin: int = 20
 
+var direction: float
 var viewport_size: Vector2
+var use_mobile_input: bool = false
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 
 func _ready() -> void:
 	viewport_size = get_viewport_rect().size
+	var os_name: String = OS.get_name()
+	if os_name in ["Android", "iOS"]:
+		use_mobile_input = true
 
 
 func _process(delta: float) -> void:
@@ -27,7 +32,8 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	velocity.y = clamp(velocity.y + gravity, jump_speed, max_fall_speed)
 
-	var direction: float = Input.get_axis("move_left", "move_right")
+	if not use_mobile_input:
+		direction = Input.get_axis("move_left", "move_right")
 
 	if direction:
 		velocity.x = direction * move_speed
@@ -40,6 +46,17 @@ func _physics_process(delta: float) -> void:
 		global_position.x = -screen_margin
 	elif global_position.x < -screen_margin:
 		global_position.x = viewport_size.x + screen_margin
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		if event.is_pressed():
+			if event.position.x > viewport_size.x / 2:
+				direction = 1.0
+			elif event.position.x < viewport_size.x / 2:
+				direction = -1.0
+		else:
+			direction = 0.0
 
 
 func jump() -> void:
