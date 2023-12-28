@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://wq7bcjgdriwm"]
+[gd_scene load_steps=7 format=3 uid="uid://wq7bcjgdriwm"]
 
 [ext_resource type="Script" path="res://Scripts/screens.gd" id="1_23dgq"]
 [ext_resource type="Texture2D" uid="uid://di0nxp7oa0n82" path="res://Assets/Textures/UI/gear.png" id="2_066tw"]
 [ext_resource type="PackedScene" uid="uid://d0xa688kj6ryl" path="res://Scenes/title_screen.tscn" id="3_d13v2"]
 [ext_resource type="PackedScene" uid="uid://cde71m3pyhyhp" path="res://Scenes/pause_screen.tscn" id="4_dr4ad"]
+[ext_resource type="PackedScene" uid="uid://jpbtiq887ljo" path="res://Scenes/game_over_screen.tscn" id="4_qkqx2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_winbq"]
 
@@ -13,6 +14,8 @@ script = ExtResource("1_23dgq")
 [node name="TitleScreen" parent="." instance=ExtResource("3_d13v2")]
 
 [node name="PauseScreen" parent="." instance=ExtResource("4_dr4ad")]
+
+[node name="GameOverScreen" parent="." instance=ExtResource("4_qkqx2")]
 
 [node name="Debug" type="Control" parent="."]
 layout_mode = 3
