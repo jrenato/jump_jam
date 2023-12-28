@@ -1,4 +1,4 @@
-extends TextureButton
+class_name ScreenButton extends TextureButton
 
 signal clicked(button: TextureButton)
 

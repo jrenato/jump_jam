@@ -1,8 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0xa688kj6ryl"]
+[gd_scene load_steps=8 format=3 uid="uid://d0xa688kj6ryl"]
 
+[ext_resource type="Script" path="res://Scripts/base_screen.gd" id="1_070t6"]
 [ext_resource type="Texture2D" uid="uid://daly78lhqvcrg" path="res://Assets/Textures/UI/BigLogo.png" id="1_vngul"]
 [ext_resource type="PackedScene" uid="uid://bxxp85jl3nyoc" path="res://Scenes/screen_button.tscn" id="2_atj08"]
 [ext_resource type="Texture2D" uid="uid://cfylyh74rao5k" path="res://Assets/Textures/UI/PlayBtn.png" id="3_58dbn"]
+
+[sub_resource type="Animation" id="Animation_774so"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TitlePlay:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-101.5, 50)]
+}
 
 [sub_resource type="Animation" id="Animation_pojss"]
 resource_name = "animate_play_button"
@@ -11,7 +27,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Control/PlayButton:position")
+tracks/0/path = NodePath("Control/TitlePlay:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -19,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(-101.5, 50), Vector2(-101.5, 65), Vector2(-101.5, 50)]
-}
-
-[sub_resource type="Animation" id="Animation_774so"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/PlayButton:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-101.5, 50)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cbgc4"]
@@ -49,6 +50,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_070t6")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -80,7 +82,7 @@ grow_vertical = 2
 texture = ExtResource("1_vngul")
 expand_mode = 1
 
-[node name="PlayButton" parent="Control" instance=ExtResource("2_atj08")]
+[node name="TitlePlay" parent="Control" instance=ExtResource("2_atj08")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

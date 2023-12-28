@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/screen_button.gd" id="1_8ssi8"]
 
-[node name="ScreenButton" type="TextureButton"]
+[node name="ScreenButton" type="TextureButton" groups=["buttons"]]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_8ssi8")
