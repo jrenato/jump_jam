@@ -61,3 +61,5 @@ func change_screen(new_screen: Control) -> void:
 
 	if current_screen:
 		var appear_tween: Tween = current_screen.appear()
+		await(appear_tween.finished)
+		get_tree().call_group("buttons", "set_disabled", false)
