@@ -14,14 +14,20 @@ func _ready() -> void:
 	var os_name: String = OS.get_name()
 
 	if os_name in ["Android", "iOS"]:
-		adjust_safe_area()
+		adjust_safe_area(os_name)
 
 	pause_button.pressed.connect(_on_pause_button_pressed)
 
 
-func adjust_safe_area() -> void:
+func adjust_safe_area(os_name: String) -> void:
 	safe_area = DisplayServer.get_display_safe_area()
 	safe_area_top = safe_area.position.y
+
+	if os_name == "iOS":
+		var screen_scale: float = DisplayServer.screen_get_scale()
+		safe_area_top = safe_area_top / screen_scale
+		Signals.add_log_msg("Screen Scale %s" % screen_scale)
+
 	top_bar.position.y += safe_area_top
 	top_bar_bg.size.y += safe_area_top + bg_margin
 
