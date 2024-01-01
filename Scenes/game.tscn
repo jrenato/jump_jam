@@ -18,6 +18,7 @@ player_scene = ExtResource("2_xx8od")
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UILayer" instance=ExtResource("9_wxank")]
+unique_name_in_owner = true
 
 [node name="GroundSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true

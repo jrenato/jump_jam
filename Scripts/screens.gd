@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal start_game
+
 @export var fadeout_duration: float = 0.5
 
 var current_screen: Control = null
@@ -36,7 +38,9 @@ func register_buttons() -> void:
 func _on_screen_button_pressed(button: ScreenButton) -> void:
 	match button.name:
 		"TitlePlay":
-			change_screen(pause_screen)
+			change_screen(null)
+			await(get_tree().create_timer(fadeout_duration).timeout)
+			start_game.emit()
 		"PauseRetry":
 			change_screen(game_over_screen)
 		"PauseBack":

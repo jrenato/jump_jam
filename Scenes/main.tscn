@@ -8,5 +8,7 @@
 script = ExtResource("1_kunf3")
 
 [node name="Game" parent="." instance=ExtResource("2_ron71")]
+unique_name_in_owner = true
 
 [node name="Screens" parent="." instance=ExtResource("3_nms6f")]
+unique_name_in_owner = true

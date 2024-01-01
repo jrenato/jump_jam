@@ -15,8 +15,12 @@ var player_spawn_position: Vector2
 @onready var parallax_2: ParallaxLayer = %ParallaxLayer2
 @onready var parallax_3: ParallaxLayer = %ParallaxLayer3
 
+@onready var hud: Control = %HUD
+
 
 func _ready() -> void:
+	hud.visible = false
+
 	viewport_size = get_viewport_rect().size
 	player_spawn_position.x = viewport_size.x / 2.0
 	player_spawn_position.y = viewport_size.y - player_spawn_y_offset
@@ -28,7 +32,7 @@ func _ready() -> void:
 	setup_parallax_layer(parallax_2)
 	setup_parallax_layer(parallax_3)
 
-	new_game()
+	#new_game()
 
 
 func new_game() -> void:
@@ -41,6 +45,9 @@ func new_game() -> void:
 	add_child(camera)
 
 	level_generator.player = player
+	level_generator.start_generation()
+
+	hud.visible = true
 
 
 func get_parallax_sprite_scale(parallax_sprite: Sprite2D) -> Vector2:
