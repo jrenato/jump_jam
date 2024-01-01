@@ -5,7 +5,7 @@ class_name LevelGenerator extends Node2D
 @export var ground_y_offset: int = 62
 @export var y_distance_between_platforms: int = 100
 @export var start_level_size: int = 10
-@export var threshold_margin_count: int = 6
+@export var threshold_margin_count: int = 12
 
 var player: Player
 var viewport_size: Vector2
