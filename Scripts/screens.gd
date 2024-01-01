@@ -1,21 +1,28 @@
 extends CanvasLayer
 
+@export var fadeout_duration: float = 0.5
+
 var current_screen: Control = null
 
 @onready var console: Control = %ConsoleLog
 @onready var toggle_console: TextureButton = %ToggleConsole
 @onready var log_label: Label = %LogLabel
 
-@onready var title_screen: Control = %TitleScreen
-@onready var pause_screen: Control = %PauseScreen
-@onready var game_over_screen: Control = %GameOverScreen
+@onready var title_screen: BaseScreen = %TitleScreen
+@onready var pause_screen: BaseScreen = %PauseScreen
+@onready var game_over_screen: BaseScreen = %GameOverScreen
 
 
 func _ready() -> void:
 	toggle_console.pressed.connect(_on_toggle_console_pressed)
 
 	console.visible = false
+
 	register_buttons()
+
+	title_screen.fadeout_duration = fadeout_duration
+	pause_screen.fadeout_duration = fadeout_duration
+	game_over_screen.fadeout_duration = fadeout_duration
 	change_screen(title_screen)
 
 
