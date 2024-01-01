@@ -13,7 +13,6 @@ var current_screen: Control = null
 
 func _ready() -> void:
 	toggle_console.pressed.connect(_on_toggle_console_pressed)
-	Signals.log_message.connect(_on_log_message)
 
 	console.visible = false
 	register_buttons()
@@ -45,10 +44,6 @@ func _on_screen_button_pressed(button: ScreenButton) -> void:
 
 func _on_toggle_console_pressed() -> void:
 	console.visible = not console.visible
-
-
-func _on_log_message(message: String) -> void:
-	log_label.text += "%s\n" % message
 
 
 func change_screen(new_screen: Control) -> void:
