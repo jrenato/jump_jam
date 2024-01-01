@@ -1,5 +1,7 @@
 extends Node2D
 
+signal game_over(score: int, high_score: int)
+
 @export var camera_scene: PackedScene
 @export var player_scene: PackedScene
 @export var player_spawn_y_offset: float = 135.0
@@ -32,13 +34,19 @@ func _ready() -> void:
 	setup_parallax_layer(parallax_2)
 	setup_parallax_layer(parallax_3)
 
-	#new_game()
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
+	if Input.is_action_just_pressed("reset"):
+		get_tree().reload_current_scene()
 
 
 func new_game() -> void:
 	player = player_scene.instantiate() as Player
 	add_child(player)
 	player.global_position = player_spawn_position
+	player.died.connect(_on_player_died)
 
 	camera = camera_scene.instantiate() as GameCamera
 	camera.setup_camera(player)
@@ -68,8 +76,6 @@ func setup_parallax_layer(parallax_layer: ParallaxLayer) -> void:
 	parallax_layer.motion_mirroring.y = mirror_y
 
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
-	if Input.is_action_just_pressed("reset"):
-		get_tree().reload_current_scene()
+func _on_player_died() -> void:
+	hud.visible = false
+	game_over.emit(1234, 4321)

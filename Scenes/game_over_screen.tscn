@@ -62,6 +62,7 @@ texture = ExtResource("2_syjuh")
 expand_mode = 1
 
 [node name="ScoreLabel" type="Label" parent="Box"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -79,6 +80,7 @@ label_settings = SubResource("LabelSettings_fvw23")
 horizontal_alignment = 1
 
 [node name="HighScoreLabel" type="Label" parent="Box"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

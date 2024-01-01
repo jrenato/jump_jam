@@ -3,6 +3,7 @@ extends CanvasLayer
 signal start_game
 
 @export var fadeout_duration: float = 0.5
+@export var game_over_delay: float = 0.75
 
 var current_screen: Control = null
 
@@ -69,3 +70,10 @@ func change_screen(new_screen: Control) -> void:
 		var appear_tween: Tween = current_screen.appear()
 		await(appear_tween.finished)
 		get_tree().call_group("buttons", "set_disabled", false)
+
+
+func game_over(score: int, high_score: int) -> void:
+	game_over_screen.score_label.text = "Score: %s" % score
+	game_over_screen.high_score_label.text = "Best: %s" % high_score
+	await(get_tree().create_timer(game_over_delay).timeout)
+	change_screen(game_over_screen)

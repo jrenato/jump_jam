@@ -1,7 +1,9 @@
 class_name BaseScreen extends Control
 
-
 var fadeout_duration: float = 0.5
+
+@onready var score_label: Label = %ScoreLabel
+@onready var high_score_label: Label = %HighScoreLabel
 
 
 func _ready() -> void:

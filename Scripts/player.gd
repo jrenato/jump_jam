@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody2D
 
+signal died
+
 @export var gravity: float = 15.0
 @export var max_fall_speed: float = 1000.0
 @export var move_speed: float = 300.0
@@ -8,14 +10,19 @@ class_name Player extends CharacterBody2D
 
 @export var screen_margin: int = 20
 
+var dead: bool = false
 var direction: float
 var viewport_size: Vector2
 var use_mobile_input: bool = false
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var visible_notifier: VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
+@onready var collision_shape: CollisionShape2D = %CollisionShape2D
 
 
 func _ready() -> void:
+	visible_notifier.screen_exited.connect(_on_visible_on_screen_notifier_2d_screen_exited)
+
 	viewport_size = get_viewport_rect().size
 	var os_name: String = OS.get_name()
 	if os_name in ["Android", "iOS"]:
@@ -32,13 +39,14 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	velocity.y = clamp(velocity.y + gravity, jump_speed, max_fall_speed)
 
-	if not use_mobile_input:
-		direction = Input.get_axis("move_left", "move_right")
+	if not dead:
+		if not use_mobile_input:
+			direction = Input.get_axis("move_left", "move_right")
 
-	if direction:
-		velocity.x = direction * move_speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, friction)
+		if direction:
+			velocity.x = direction * move_speed
+		else:
+			velocity.x = move_toward(velocity.x, 0, friction)
 
 	move_and_slide()
 
@@ -61,3 +69,14 @@ func _input(event: InputEvent) -> void:
 
 func jump() -> void:
 	velocity.y = jump_speed
+
+
+func die() -> void:
+	if not dead:
+		dead = true
+		collision_shape.set_deferred("disabled", true)
+		died.emit()
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	die()
