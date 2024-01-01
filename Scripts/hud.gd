@@ -25,7 +25,7 @@ func adjust_safe_area(os_name: String) -> void:
 
 	if os_name == "iOS":
 		var screen_scale: float = DisplayServer.screen_get_scale()
-		safe_area_top = safe_area_top / screen_scale
+		safe_area_top = int(safe_area_top / screen_scale)
 		Signals.add_log_msg("Screen Scale %s" % screen_scale)
 
 	top_bar.position.y += safe_area_top
