@@ -9,6 +9,9 @@ var limit_distance: int = 420
 
 
 func _ready() -> void:
+	if player:
+		global_position.y = player.global_position.y
+
 	viewport_size = get_viewport_rect().size
 	global_position.x = viewport_size.x / 2.0
 
