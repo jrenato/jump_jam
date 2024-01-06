@@ -16,6 +16,9 @@ var current_screen: Control = null
 @onready var pause_screen: BaseScreen = %PauseScreen
 @onready var game_over_screen: BaseScreen = %GameOverScreen
 
+@onready var game_over_score_label = $GameOverScreen/Box/ScoreLabel
+@onready var game_over_high_score_label = $GameOverScreen/Box/HighScoreLabel
+
 
 func _ready() -> void:
 	toggle_console.pressed.connect(_on_toggle_console_pressed)
@@ -77,7 +80,7 @@ func change_screen(new_screen: Control) -> void:
 
 
 func game_over(score: int, high_score: int) -> void:
-	game_over_screen.score_label.text = "Score: %s" % score
-	game_over_screen.high_score_label.text = "Best: %s" % high_score
+	game_over_score_label.text = "Score: %s" % score
+	game_over_high_score_label.text = "Best: %s" % high_score
 	await(get_tree().create_timer(game_over_delay).timeout)
 	change_screen(game_over_screen)

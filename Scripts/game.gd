@@ -11,6 +11,7 @@ var viewport_size: Vector2
 var player: Player
 var player_spawn_position: Vector2
 var score: int
+var high_score: int
 
 @onready var level_generator: LevelGenerator = %LevelGenerator
 @onready var ground_sprite: Sprite2D = %GroundSprite
@@ -18,7 +19,7 @@ var score: int
 @onready var parallax_2: ParallaxLayer = %ParallaxLayer2
 @onready var parallax_3: ParallaxLayer = %ParallaxLayer3
 
-@onready var hud: Control = %HUD
+@onready var hud: HUD = %HUD
 
 
 func _ready() -> void:
@@ -47,12 +48,13 @@ func _process(delta: float) -> void:
 		var temp_score: int = int(viewport_size.y - player.global_position.y)
 		if score < temp_score:
 			score = temp_score
-		print(score)
+			hud.set_score(score)
 
 
 func new_game() -> void:
 	reset_game()
 	score = 0
+	hud.set_score(score)
 
 	player = player_scene.instantiate() as Player
 	add_child(player)
@@ -71,6 +73,8 @@ func new_game() -> void:
 
 
 func reset_game() -> void:
+	score = 0
+
 	if player:
 		player.queue_free()
 		player = null
@@ -104,4 +108,8 @@ func setup_parallax_layer(parallax_layer: ParallaxLayer) -> void:
 
 func _on_player_died() -> void:
 	hud.visible = false
-	game_over.emit(1234, 4321)
+
+	if score > high_score:
+		high_score = score
+
+	game_over.emit(score, high_score)

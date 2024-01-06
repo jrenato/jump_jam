@@ -1,4 +1,4 @@
-extends Control
+class_name HUD extends Control
 
 var safe_area: Rect2i
 var safe_area_top: int
@@ -36,6 +36,10 @@ func adjust_safe_area(os_name: String) -> void:
 	Signals.add_log_msg("Safe Area Top %s" % safe_area_top)
 	Signals.add_log_msg("Top Bar position %s" % top_bar.position)
 	Signals.add_log_msg("Top Bar BG size %s" % top_bar_bg.size)
+
+
+func set_score(score: int) -> void:
+	score_label.text = "%s" % score
 
 
 func _on_pause_button_pressed() -> void:
