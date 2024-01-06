@@ -44,6 +44,8 @@ func _process(delta: float) -> void:
 
 
 func new_game() -> void:
+	reset_game()
+
 	player = player_scene.instantiate() as Player
 	add_child(player)
 	player.global_position = player_spawn_position

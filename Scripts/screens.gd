@@ -50,7 +50,9 @@ func _on_screen_button_pressed(button: ScreenButton) -> void:
 		"PauseClose":
 			pass
 		"GameOverRetry":
-			change_screen(title_screen)
+			change_screen(null)
+			await(get_tree().create_timer(fadeout_duration).timeout)
+			start_game.emit()
 		"GameOverBack":
 			change_screen(title_screen)
 			delete_level.emit()
