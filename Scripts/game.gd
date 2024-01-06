@@ -10,6 +10,7 @@ var camera: GameCamera
 var viewport_size: Vector2
 var player: Player
 var player_spawn_position: Vector2
+var score: int
 
 @onready var level_generator: LevelGenerator = %LevelGenerator
 @onready var ground_sprite: Sprite2D = %GroundSprite
@@ -42,9 +43,16 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
 
+	if player and player.velocity.y < 0:
+		var temp_score: int = int(viewport_size.y - player.global_position.y)
+		if score < temp_score:
+			score = temp_score
+		print(score)
+
 
 func new_game() -> void:
 	reset_game()
+	score = 0
 
 	player = player_scene.instantiate() as Player
 	add_child(player)
