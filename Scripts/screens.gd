@@ -47,11 +47,18 @@ func _on_screen_button_pressed(button: ScreenButton) -> void:
 			await(get_tree().create_timer(fadeout_duration).timeout)
 			start_game.emit()
 		"PauseRetry":
-			change_screen(game_over_screen)
+			change_screen(null)
+			await(get_tree().create_timer(fadeout_duration * 1.5).timeout)
+			get_tree().paused = false
+			start_game.emit()
 		"PauseBack":
-			pass
+			change_screen(title_screen)
+			get_tree().paused = false
+			delete_level.emit()
 		"PauseClose":
-			pass
+			change_screen(null)
+			await(get_tree().create_timer(fadeout_duration * 1.5).timeout)
+			get_tree().paused = false
 		"GameOverRetry":
 			change_screen(null)
 			await(get_tree().create_timer(fadeout_duration).timeout)
@@ -84,3 +91,7 @@ func game_over(score: int, high_score: int) -> void:
 	game_over_high_score_label.text = "Best: %s" % high_score
 	await(get_tree().create_timer(game_over_delay).timeout)
 	change_screen(game_over_screen)
+
+
+func pause_game() -> void:
+	change_screen(pause_screen)

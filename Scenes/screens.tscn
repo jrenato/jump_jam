@@ -9,6 +9,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_winbq"]
 
 [node name="Screens" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_23dgq")
 
 [node name="TitleScreen" parent="." instance=ExtResource("3_d13v2")]

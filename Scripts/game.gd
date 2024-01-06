@@ -1,6 +1,7 @@
 extends Node2D
 
 signal game_over(score: int, high_score: int)
+signal pause_game
 
 @export var camera_scene: PackedScene
 @export var player_scene: PackedScene
@@ -24,6 +25,8 @@ var save_file_path: String = "user://highscore.dat"
 
 
 func _ready() -> void:
+	hud.pause_game.connect(_on_hud_pause_game)
+	hud.set_score(0)
 	hud.visible = false
 	ground_sprite.visible = false
 
@@ -58,6 +61,8 @@ func new_game() -> void:
 	reset_game()
 	score = 0
 	hud.set_score(score)
+	hud.visible = true
+	ground_sprite.visible = true
 
 	player = player_scene.instantiate() as Player
 	add_child(player)
@@ -71,12 +76,12 @@ func new_game() -> void:
 	level_generator.player = player
 	level_generator.start_generation()
 
-	hud.visible = true
-	ground_sprite.visible = true
-
 
 func reset_game() -> void:
 	score = 0
+	hud.visible = false
+	level_generator.reset_level()
+	ground_sprite.visible = false
 
 	if player:
 		player.queue_free()
@@ -86,9 +91,6 @@ func reset_game() -> void:
 	if camera:
 		camera.queue_free()
 		camera = null
-
-	level_generator.reset_level()
-	ground_sprite.visible = false
 
 
 func get_parallax_sprite_scale(parallax_sprite: Sprite2D) -> Vector2:
@@ -133,3 +135,7 @@ func _on_player_died() -> void:
 		save_score()
 
 	game_over.emit(score, high_score)
+
+
+func _on_hud_pause_game() -> void:
+	pause_game.emit()

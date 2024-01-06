@@ -1,5 +1,7 @@
 class_name HUD extends Control
 
+signal pause_game
+
 var safe_area: Rect2i
 var safe_area_top: int
 var bg_margin: int = 10
@@ -43,4 +45,4 @@ func set_score(score: int) -> void:
 
 
 func _on_pause_button_pressed() -> void:
-	pass
+	pause_game.emit()
