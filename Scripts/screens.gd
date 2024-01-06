@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal start_game
+signal delete_level
 
 @export var fadeout_duration: float = 0.5
 @export var game_over_delay: float = 0.75
@@ -51,7 +52,8 @@ func _on_screen_button_pressed(button: ScreenButton) -> void:
 		"GameOverRetry":
 			change_screen(title_screen)
 		"GameOverBack":
-			pass
+			change_screen(title_screen)
+			delete_level.emit()
 
 
 func _on_toggle_console_pressed() -> void:

@@ -22,6 +22,7 @@ var player_spawn_position: Vector2
 
 func _ready() -> void:
 	hud.visible = false
+	ground_sprite.visible = false
 
 	viewport_size = get_viewport_rect().size
 	player_spawn_position.x = viewport_size.x / 2.0
@@ -56,6 +57,21 @@ func new_game() -> void:
 	level_generator.start_generation()
 
 	hud.visible = true
+	ground_sprite.visible = true
+
+
+func reset_game() -> void:
+	if player:
+		player.queue_free()
+		player = null
+		level_generator.player = null
+
+	if camera:
+		camera.queue_free()
+		camera = null
+
+	level_generator.reset_level()
+	ground_sprite.visible = false
 
 
 func get_parallax_sprite_scale(parallax_sprite: Sprite2D) -> Vector2:

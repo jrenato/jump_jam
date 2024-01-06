@@ -69,3 +69,9 @@ func generate_level(start_y: float, generate_ground: bool, level_size: int) -> v
 		location.y = start_y - (y_distance_between_platforms * i)
 		generated_platform_count += 1
 		create_platform(location, "Platform%s" % generated_platform_count)
+
+
+func reset_level() -> void:
+	for platform in platforms_parent.get_children():
+		if platform is Platform:
+			platform.queue_free()

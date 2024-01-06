@@ -6,6 +6,7 @@ extends Node
 
 func _ready() -> void:
 	screens.start_game.connect(_on_start_game)
+	screens.delete_level.connect(_on_delete_level)
 	game.game_over.connect(_on_game_over)
 	
 
@@ -15,3 +16,7 @@ func _on_start_game() -> void:
 
 func _on_game_over(score: int, high_score: int) -> void:
 	screens.game_over(score, high_score)
+
+
+func _on_delete_level() -> void:
+	game.reset_game()
