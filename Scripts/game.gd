@@ -12,6 +12,7 @@ var player: Player
 var player_spawn_position: Vector2
 var score: int
 var high_score: int
+var save_file_path: String = "user://highscore.dat"
 
 @onready var level_generator: LevelGenerator = %LevelGenerator
 @onready var ground_sprite: Sprite2D = %GroundSprite
@@ -36,6 +37,8 @@ func _ready() -> void:
 	setup_parallax_layer(parallax_1)
 	setup_parallax_layer(parallax_2)
 	setup_parallax_layer(parallax_3)
+
+	load_score()
 
 
 func _process(delta: float) -> void:
@@ -106,10 +109,27 @@ func setup_parallax_layer(parallax_layer: ParallaxLayer) -> void:
 	parallax_layer.motion_mirroring.y = mirror_y
 
 
+func save_score() -> void:
+	var file: FileAccess = FileAccess.open(save_file_path, FileAccess.WRITE)
+	file.store_var(high_score)
+	file.close()
+
+
+func load_score() -> void:
+	if not FileAccess.file_exists(save_file_path):
+		high_score = 0
+		return
+
+	var file: FileAccess = FileAccess.open(save_file_path, FileAccess.READ)
+	high_score = file.get_var()
+	file.close()
+
+
 func _on_player_died() -> void:
 	hud.visible = false
 
 	if score > high_score:
 		high_score = score
+		save_score()
 
 	game_over.emit(score, high_score)
