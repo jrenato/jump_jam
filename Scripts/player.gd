@@ -69,10 +69,12 @@ func _input(event: InputEvent) -> void:
 
 func jump() -> void:
 	velocity.y = jump_speed
+	SoundFX.play("Jump")
 
 
 func die() -> void:
 	if not dead:
+		SoundFX.play("Fall")
 		dead = true
 		collision_shape.set_deferred("disabled", true)
 		died.emit()

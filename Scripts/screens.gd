@@ -41,6 +41,7 @@ func register_buttons() -> void:
 
 
 func _on_screen_button_pressed(button: ScreenButton) -> void:
+	SoundFX.play("Click")
 	match button.name:
 		"TitlePlay":
 			change_screen(null)

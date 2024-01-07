@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Signals="*res://Scripts/signals.gd"
+SoundFX="*res://Scenes/sound_fx.tscn"
 
 [debug]
 
