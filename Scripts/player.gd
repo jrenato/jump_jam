@@ -15,9 +15,13 @@ var direction: float
 var viewport_size: Vector2
 var use_mobile_input: bool = false
 
+var fall_animation: String = "Fall"
+var jump_animation: String = "Jump"
+
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var visible_notifier: VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
 @onready var collision_shape: CollisionShape2D = %CollisionShape2D
+@onready var sprite = %Sprite2D
 
 
 func _ready() -> void:
@@ -30,10 +34,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if velocity.y > 0 and animation_player.assigned_animation != "Fall":
-		animation_player.play("Fall")
-	elif velocity.y < 0 and animation_player.assigned_animation != "Jump":
-		animation_player.play("Jump")
+	if velocity.y > 0 and animation_player.assigned_animation != fall_animation:
+		animation_player.play(fall_animation)
+	elif velocity.y < 0 and animation_player.assigned_animation != jump_animation:
+		animation_player.play(jump_animation)
 
 
 func _physics_process(delta: float) -> void:
@@ -78,6 +82,13 @@ func die() -> void:
 		dead = true
 		collision_shape.set_deferred("disabled", true)
 		died.emit()
+
+
+func use_new_skin() -> void:
+	fall_animation = "Fall_Red"
+	jump_animation = "Jump_Red"
+	if sprite:
+		sprite.texture = preload("res://Assets/Textures/Character/Skin2Idle.png")
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:

@@ -14,6 +14,7 @@ var player_spawn_position: Vector2
 var score: int
 var high_score: int
 var save_file_path: String = "user://highscore.dat"
+var new_skin_unlocked: bool = false
 
 @onready var level_generator: LevelGenerator = %LevelGenerator
 @onready var ground_sprite: Sprite2D = %GroundSprite
@@ -65,10 +66,12 @@ func new_game() -> void:
 	ground_sprite.visible = true
 
 	player = player_scene.instantiate() as Player
-	add_child(player)
 	player.global_position = player_spawn_position
 	player.died.connect(_on_player_died)
-
+	add_child(player)
+	if new_skin_unlocked:
+		player.use_new_skin()
+	
 	camera = camera_scene.instantiate() as GameCamera
 	camera.setup_camera(player)
 	add_child(camera)

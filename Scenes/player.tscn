@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://ci4vt7vuqoxw2"]
+[gd_scene load_steps=13 format=3 uid="uid://ci4vt7vuqoxw2"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_edvop"]
 [ext_resource type="Texture2D" uid="uid://bvlo4q0g8l271" path="res://Assets/Textures/Character/Skin1Idle.png" id="1_ik36m"]
 [ext_resource type="Texture2D" uid="uid://g7wsfdfm0tlf" path="res://Assets/Textures/Character/Skin1Jump.png" id="2_6p5gy"]
+[ext_resource type="Texture2D" uid="uid://dngh3nvsdtsp8" path="res://Assets/Textures/Character/Skin2Idle.png" id="4_h8lu5"]
+[ext_resource type="Texture2D" uid="uid://ban76ki8j5rns" path="res://Assets/Textures/Character/Skin2Jump.png" id="4_ytx2q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5uwr2"]
 size = Vector2(45, 25)
@@ -46,6 +48,45 @@ tracks/2/keys = {
 "values": [Vector2(0.35, 0.35)]
 }
 
+[sub_resource type="Animation" id="Animation_w3qrf"]
+resource_name = "Fall_Red"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_h8lu5")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2, -51)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.35, 0.35)]
+}
+
 [sub_resource type="Animation" id="Animation_ky5ao"]
 resource_name = "Jump"
 tracks/0/type = "value"
@@ -71,6 +112,45 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, -49)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.35, 0.35)]
+}
+
+[sub_resource type="Animation" id="Animation_6vtco"]
+resource_name = "Jump_Red"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_ytx2q")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, -49)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -127,7 +207,9 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s8x50"]
 _data = {
 "Fall": SubResource("Animation_5lanh"),
+"Fall_Red": SubResource("Animation_w3qrf"),
 "Jump": SubResource("Animation_ky5ao"),
+"Jump_Red": SubResource("Animation_6vtco"),
 "RESET": SubResource("Animation_04oyb")
 }
 
@@ -136,6 +218,7 @@ collision_mask = 2
 script = ExtResource("1_edvop")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(0, -46)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("1_ik36m")
