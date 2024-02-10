@@ -14,6 +14,7 @@ var player_spawn_position: Vector2
 var score: int
 var high_score: int
 var save_file_path: String = "user://highscore.dat"
+
 var new_skin_unlocked: bool = false
 
 @onready var level_generator: LevelGenerator = %LevelGenerator
