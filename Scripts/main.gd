@@ -4,6 +4,7 @@ var game_in_progress: bool = false
 
 @onready var game: Node2D = %Game
 @onready var screens: CanvasLayer = %Screens
+@onready var iap_manager: IAPManager = %IAPManager
 
 
 func _ready() -> void:
@@ -14,6 +15,8 @@ func _ready() -> void:
 	game.game_over.connect(_on_game_over)
 	game.pause_game.connect(_on_game_pause_game)
 
+	# IAP signals
+	iap_manager.unlock_new_skin.connect(_on_iap_manager_unlock_new_skin)
 	screens.purchase_skin.connect(_on_screens_purchase_skin)
 
 
@@ -37,11 +40,6 @@ func _on_game_pause_game() -> void:
 	screens.pause_game()
 
 
-func _on_screens_purchase_skin() -> void:
-	if not game.new_skin_unlocked:
-		game.new_skin_unlocked = true
-
-
 func _on_window_event(event: int) -> void:
 	match event:
 		DisplayServer.WINDOW_EVENT_FOCUS_OUT:
@@ -51,3 +49,14 @@ func _on_window_event(event: int) -> void:
 				Signals.add_log_msg("Lost focus, pausing the game")
 		DisplayServer.WINDOW_EVENT_CLOSE_REQUEST:
 			get_tree().quit()
+
+
+# IAP Signals
+func _on_iap_manager_unlock_new_skin(skin_name: String) -> void:
+	if not game.new_skin_unlocked:
+		game.new_skin_unlocked = true
+		print("New skin unlocked: %s" % skin_name)
+
+
+func _on_screens_purchase_skin(skin_name: String) -> void:
+	iap_manager.purchase_skin(skin_name)
