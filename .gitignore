@@ -19,3 +19,7 @@ mono_crash.*.json
 
 # VSCode specific ignores
 .vscode/
+
+# Android specific ignores
+android/build/
+*.apk
