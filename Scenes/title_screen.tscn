@@ -1,9 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0xa688kj6ryl"]
+[gd_scene load_steps=10 format=3 uid="uid://d0xa688kj6ryl"]
 
 [ext_resource type="Script" path="res://Scripts/base_screen.gd" id="1_070t6"]
 [ext_resource type="Texture2D" uid="uid://daly78lhqvcrg" path="res://Assets/Textures/UI/BigLogo.png" id="1_vngul"]
 [ext_resource type="PackedScene" uid="uid://bxxp85jl3nyoc" path="res://Scenes/screen_button.tscn" id="2_atj08"]
 [ext_resource type="Texture2D" uid="uid://cfylyh74rao5k" path="res://Assets/Textures/UI/PlayBtn.png" id="3_58dbn"]
+[ext_resource type="Texture2D" uid="uid://41wm0p5ybvno" path="res://Assets/Textures/UI/Box02.png" id="5_ndx3s"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5wyde"]
+font_size = 36
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_774so"]
 length = 0.001
@@ -74,9 +79,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -240.0
-offset_top = -340.0
+offset_top = -381.0
 offset_right = 240.0
-offset_bottom = 140.0
+offset_bottom = 99.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_vngul")
@@ -96,6 +101,39 @@ offset_bottom = 290.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("3_58dbn")
+
+[node name="TitleShop" parent="Control" instance=ExtResource("2_atj08")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = 325.0
+offset_right = 99.0
+offset_bottom = 389.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("5_ndx3s")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="Control/TitleShop"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.5
+offset_top = -25.0
+offset_right = 48.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SHOP"
+label_settings = SubResource("LabelSettings_5wyde")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

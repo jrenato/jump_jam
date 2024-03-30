@@ -3,6 +3,8 @@ extends CanvasLayer
 signal start_game
 signal delete_level
 
+signal purchase_skin
+
 @export var fadeout_duration: float = 0.5
 @export var game_over_delay: float = 0.75
 
@@ -15,6 +17,7 @@ var current_screen: Control = null
 @onready var title_screen: BaseScreen = %TitleScreen
 @onready var pause_screen: BaseScreen = %PauseScreen
 @onready var game_over_screen: BaseScreen = %GameOverScreen
+@onready var shop_screen: BaseScreen = %ShopScreen
 
 @onready var game_over_score_label = $GameOverScreen/Box/ScoreLabel
 @onready var game_over_high_score_label = $GameOverScreen/Box/HighScoreLabel
@@ -47,6 +50,8 @@ func _on_screen_button_pressed(button: ScreenButton) -> void:
 			change_screen(null)
 			await(get_tree().create_timer(fadeout_duration).timeout)
 			start_game.emit()
+		"TitleShop":
+			change_screen(shop_screen)
 		"PauseRetry":
 			change_screen(null)
 			await(get_tree().create_timer(fadeout_duration * 1.5).timeout)
@@ -67,6 +72,10 @@ func _on_screen_button_pressed(button: ScreenButton) -> void:
 		"GameOverBack":
 			change_screen(title_screen)
 			delete_level.emit()
+		"ShopBack":
+			change_screen(title_screen)
+		"ShopPurchaseSkin":
+			purchase_skin.emit()
 
 
 func _on_toggle_console_pressed() -> void:

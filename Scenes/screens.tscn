@@ -18,13 +18,12 @@ unique_name_in_owner = true
 
 [node name="PauseScreen" parent="." instance=ExtResource("4_dr4ad")]
 unique_name_in_owner = true
-visible = false
 
 [node name="GameOverScreen" parent="." instance=ExtResource("4_qkqx2")]
 unique_name_in_owner = true
-visible = false
 
 [node name="ShopScreen" parent="." instance=ExtResource("5_vvnj0")]
+unique_name_in_owner = true
 
 [node name="Debug" type="Control" parent="." groups=["debug_console"]]
 layout_mode = 3
