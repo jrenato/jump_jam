@@ -72,6 +72,7 @@ func generate_level(start_y: float, generate_ground: bool, level_size: int) -> v
 
 
 func reset_level() -> void:
+	generated_platform_count = 0
 	for platform in platforms_parent.get_children():
 		if platform is Platform:
 			platform.queue_free()
