@@ -2,15 +2,8 @@ class_name IAPManager extends Node
 
 signal unlock_new_skin(skin_name: String)
 
-# Matches BillingClient.ConnectionState in the Play Billing Library
-enum ConnectionState {
-	DISCONNECTED, # not yet connected to billing service or was already closed
-	CONNECTING, # currently in process of connecting to billing service
-	CONNECTED, # currently connected to billing service
-	CLOSED, # already closed and shouldn't be used again
-}
-
 var google_payment
+var new_skin_sku: String = "new_player_skin"
 
 
 func _ready() -> void:
@@ -41,6 +34,7 @@ func _ready() -> void:
 
 func _on_connected() -> void:
 	Signals.add_log_msg("Android IAP connected")
+	google_payment.querySkuDetails([new_skin_sku], "inapp")
 
 
 func _on_disconnected() -> void:
@@ -71,8 +65,10 @@ func _on_purchase_error(response_id: int, debug_message: String) -> void:
 	Signals.add_log_msg("Android IAP purchase error: " + debug_message)
 
 
-func _on_product_details_query_completed(products: Array) -> void:
-	Signals.add_log_msg("Android IAP product details query completed: " + str(products))
+func _on_product_details_query_completed(skus: Array) -> void:
+	Signals.add_log_msg("Android IAP product details query completed")
+	for sku in skus:
+		Signals.add_log_msg("Android IAP product sku: " + str(sku))
 
 
 func _on_product_details_query_error(response_id: int, debug_message: String, queried_skus: Array) -> void:
