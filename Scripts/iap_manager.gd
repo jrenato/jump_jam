@@ -1,6 +1,7 @@
 class_name IAPManager extends Node
 
 signal unlock_new_skin
+signal consume_purchase
 
 var google_payment
 var new_skin_sku: String = "new_player_skin"
@@ -65,11 +66,11 @@ func _on_connect_error(response_id: int, debug_message: String) -> void:
 	MyUtilities.add_log_msg("Android IAP connection error: " + debug_message)
 
 
-func _on_product_details_query_completed(skus: Array) -> void:
+func _on_product_details_query_completed(products: Array) -> void:
 	# This is called when querySkuDetails() completes
 	MyUtilities.add_log_msg("Android IAP product details query completed")
-	for sku in skus:
-		MyUtilities.add_log_msg("Android IAP product sku: " + str(sku))
+	for product in products:
+		MyUtilities.add_log_msg("Android IAP product sku: " + str(product.sku))
 	
 	# Now we can query all previously purchased items
 	google_payment.queryPurchases("inapp")
@@ -123,6 +124,7 @@ func _on_purchase_acknowledgement_error(response_id: int, debug_message: String,
 
 func _on_purchase_consumed(purchase_token: String) -> void:
 	MyUtilities.add_log_msg("Purchase consumed successfully")
+	# consume_purchase.emit()
 
 
 func _on_purchase_consumption_error(response_id: int, debug_message: String, purchase_token: String) -> void:
