@@ -19,17 +19,19 @@ func _ready() -> void:
 		google_payment.sku_details_query_completed.connect(_on_product_details_query_completed) # Products (Dictionary[])
 		google_payment.sku_details_query_error.connect(_on_product_details_query_error) # Response ID (int), Debug message (string), Queried SKUs (string[])
 
+		google_payment.query_purchases_response.connect(_on_query_purchases_response) # QueryResponse (Dictionary[])
+
 		google_payment.purchases_updated.connect(_on_purchases_updated) # Purchases (Dictionary[])
 		google_payment.purchase_error.connect(_on_purchase_error) # Response ID (int), Debug message (string)
 
-		google_payment.query_purchases_response.connect(_on_query_purchases_response) # Purchases (Dictionary[])
+		google_payment.purchase_acknowledged.connect(_on_purchase_acknowledged) # Purchase token (string)
+		google_payment.purchase_acknowledgement_error.connect(_on_purchase_acknowledgement_error) # Response ID (int), Debug message (string), Purchase token (string)
+
+		google_payment.purchase_consumed.connect(_on_purchase_consumed) # Purchase token (string)
+		google_payment.purchase_consumption_error.connect(_on_purchase_consumption_error) # Response ID (int), Debug message (string), Purchase token (string)
 
 		google_payment.billing_resume.connect(_on_billing_resume) # No params
 		google_payment.price_change_acknowledged.connect(_on_price_acknowledged) # Response ID (int)
-		google_payment.purchase_acknowledged.connect(_on_purchase_acknowledged) # Purchase token (string)
-		google_payment.purchase_acknowledgement_error.connect(_on_purchase_acknowledgement_error) # Response ID (int), Debug message (string), Purchase token (string)
-		google_payment.purchase_consumed.connect(_on_purchase_consumed) # Purchase token (string)
-		google_payment.purchase_consumption_error.connect(_on_purchase_consumption_error) # Response ID (int), Debug message (string), Purchase token (string)
 
 		google_payment.startConnection()
 	else:
@@ -44,8 +46,14 @@ func purchase_skin() -> void:
 			Signals.add_log_msg("Error on purchase: " + str(response.status))
 
 
+func reset_purchases() -> void:
+	if google_payment and not new_skin_token.is_empty():
+		google_payment.consumePurchase(new_skin_token)
+
+
 func _on_connected() -> void:
 	Signals.add_log_msg("Android IAP connected")
+	# It's required to query product details before user can make purchases
 	google_payment.querySkuDetails([new_skin_sku], "inapp")
 
 
@@ -58,13 +66,35 @@ func _on_connect_error(response_id: int, debug_message: String) -> void:
 
 
 func _on_product_details_query_completed(skus: Array) -> void:
+	# This is called when querySkuDetails() completes
 	Signals.add_log_msg("Android IAP product details query completed")
 	for sku in skus:
 		Signals.add_log_msg("Android IAP product sku: " + str(sku))
+	
+	# Now we can query all previously purchased items
+	google_payment.queryPurchases("inapp")
 
 
 func _on_product_details_query_error(response_id: int, debug_message: String, queried_skus: Array) -> void:
 	Signals.add_log_msg("Android IAP product details query error: " + debug_message)
+
+
+func _on_query_purchases_response(query_result: Dictionary) -> void:
+	# This is called when queryPurchases() completes
+	Signals.add_log_msg("Android IAP purchases query completed")
+	if query_result.status == OK:
+		var purchases: Array = query_result.purchases
+		var purchase: Dictionary = purchases[0]
+		var purchase_sku: String = purchase["skus"][0]
+		if purchase_sku == new_skin_sku:
+			new_skin_token = purchase.purchase_token
+			if not purchase.is_acknowledged:
+				google_payment.acknowledgePurchase(purchase.purchase_token)
+			else:
+				Signals.add_log_msg("Unlocking previously purchased skin")
+				unlock_new_skin.emit()
+	else:
+		Signals.add_log_msg("Android IAP purchases query error: " + str(query_result.status))
 
 
 func _on_purchases_updated(purchases: Array) -> void:
@@ -81,14 +111,6 @@ func _on_purchase_error(response_id: int, debug_message: String) -> void:
 	Signals.add_log_msg("Android IAP purchase error: '%s' - ID %s" % [debug_message, response_id])
 
 
-func _on_billing_resume() -> void:
-	Signals.add_log_msg("Billing resumed")
-
-
-func _on_price_acknowledged(response_id: int) -> void:
-	Signals.add_log_msg("Android IAP price acknowledgement: " + str(response_id))
-
-
 func _on_purchase_acknowledged(purchase_token: String) -> void:
 	if purchase_token and new_skin_token == purchase_token:
 		Signals.add_log_msg("Android IAP purchase acknowledged: " + purchase_token)
@@ -100,12 +122,16 @@ func _on_purchase_acknowledgement_error(response_id: int, debug_message: String,
 
 
 func _on_purchase_consumed(purchase_token: String) -> void:
-	Signals.add_log_msg("Android IAP purchase consumed: " + purchase_token)
+	Signals.add_log_msg("Purchase consumed successfully")
 
 
 func _on_purchase_consumption_error(response_id: int, debug_message: String, purchase_token: String) -> void:
-	Signals.add_log_msg("Android IAP purchase consumption error: " + debug_message)
+	Signals.add_log_msg("Purchase consumption error (id: %s) for %s: %s" % [response_id, purchase_token, debug_message])
 
 
-func _on_query_purchases_response(purchases: Array) -> void:
-	Signals.add_log_msg("Android IAP query purchases response: " + str(purchases))
+func _on_billing_resume() -> void:
+	Signals.add_log_msg("Billing resumed")
+
+
+func _on_price_acknowledged(response_id: int) -> void:
+	Signals.add_log_msg("Android IAP price acknowledgement: " + str(response_id))

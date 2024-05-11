@@ -17,6 +17,7 @@ func _ready() -> void:
 
 	# IAP signals
 	screens.purchase_skin.connect(_on_screens_purchase_skin)
+	screens.reset_purchases.connect(_on_screens_reset_purchases)
 	iap_manager.unlock_new_skin.connect(_on_iap_manager_unlock_new_skin)
 
 
@@ -54,6 +55,10 @@ func _on_window_event(event: int) -> void:
 # IAP Signals
 func _on_screens_purchase_skin() -> void:
 	iap_manager.purchase_skin()
+
+
+func _on_screens_reset_purchases() -> void:
+	iap_manager.reset_purchases()
 
 
 func _on_iap_manager_unlock_new_skin() -> void:

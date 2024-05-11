@@ -4,6 +4,7 @@ signal start_game
 signal delete_level
 
 signal purchase_skin
+signal reset_purchases
 
 @export var fadeout_duration: float = 0.5
 @export var game_over_delay: float = 0.75
@@ -77,6 +78,8 @@ func _on_screen_button_pressed(button: ScreenButton) -> void:
 		"ShopPurchaseSkin":
 			Signals.add_log_msg("Initiating skin purchase")
 			purchase_skin.emit()
+		"ShopResetPurchases":
+			reset_purchases.emit()
 
 
 func _on_toggle_console_pressed() -> void:
