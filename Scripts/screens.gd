@@ -76,7 +76,7 @@ func _on_screen_button_pressed(button: ScreenButton) -> void:
 		"ShopBack":
 			change_screen(title_screen)
 		"ShopPurchaseSkin":
-			Signals.add_log_msg("Initiating skin purchase")
+			MyUtilities.add_log_msg("Initiating skin purchase")
 			purchase_skin.emit()
 		"ShopResetPurchases":
 			reset_purchases.emit()

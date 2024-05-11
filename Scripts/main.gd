@@ -47,7 +47,7 @@ func _on_window_event(event: int) -> void:
 			# Pause game if it's in progress and not already paused
 			if game_in_progress and not get_tree().paused:
 				_on_game_pause_game()
-				Signals.add_log_msg("Lost focus, pausing the game")
+				MyUtilities.add_log_msg("Lost focus, pausing the game")
 		DisplayServer.WINDOW_EVENT_CLOSE_REQUEST:
 			get_tree().quit()
 
@@ -64,4 +64,4 @@ func _on_screens_reset_purchases() -> void:
 func _on_iap_manager_unlock_new_skin() -> void:
 	if not game.new_skin_unlocked:
 		game.new_skin_unlocked = true
-		Signals.add_log_msg("New skin unlocked")
+		MyUtilities.add_log_msg("New skin unlocked")

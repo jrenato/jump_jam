@@ -9,7 +9,7 @@ signal pause_game
 
 var camera: GameCamera
 var viewport_size: Vector2
-var player: Player
+var player: Jumper
 var player_spawn_position: Vector2
 var score: int
 var high_score: int
@@ -66,7 +66,7 @@ func new_game() -> void:
 	hud.visible = true
 	ground_sprite.visible = true
 
-	player = player_scene.instantiate() as Player
+	player = player_scene.instantiate() as Jumper
 	player.global_position = player_spawn_position
 	player.died.connect(_on_player_died)
 	add_child(player)

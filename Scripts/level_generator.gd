@@ -7,7 +7,7 @@ class_name LevelGenerator extends Node2D
 @export var start_level_size: int = 10
 @export var threshold_margin_count: int = 12
 
-var player: Player
+var player: Jumper
 var viewport_size: Vector2
 var start_platform_y: float
 var max_x_position: float

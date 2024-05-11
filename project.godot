@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Signals="*res://Scripts/signals.gd"
+MyUtilities="*res://Scripts/MyUtilities.gd"
 SoundFX="*res://Scenes/sound_fx.tscn"
 
 [debug]
@@ -32,6 +32,10 @@ window/size/viewport_height=960
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
 window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/admob/plugin.cfg")
 
 [input]
 

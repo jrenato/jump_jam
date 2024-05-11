@@ -1,7 +1,7 @@
 class_name GameCamera extends Camera2D
 
 var viewport_size: Vector2
-var player: Player
+var player: Jumper
 var limit_distance: int = 420
 
 @onready var destroyer: Area2D = %Destroyer
@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	global_position.y = player.global_position.y
 
 
-func setup_camera(_player: Player) -> void:
+func setup_camera(_player: Jumper) -> void:
 	if not _player:
 		return
 

@@ -6,7 +6,7 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is Player:
-		var player: Player = body as Player
+	if body is Jumper:
+		var player: Jumper = body as Jumper
 		if player.velocity.y > 0:
 			player.jump()

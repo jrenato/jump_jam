@@ -28,16 +28,16 @@ func adjust_safe_area(os_name: String) -> void:
 	if os_name == "iOS":
 		var screen_scale: float = DisplayServer.screen_get_scale()
 		safe_area_top = int(safe_area_top / screen_scale)
-		Signals.add_log_msg("Screen Scale %s" % screen_scale)
+		MyUtilities.add_log_msg("Screen Scale %s" % screen_scale)
 
 	top_bar.position.y += safe_area_top
 	top_bar_bg.size.y += safe_area_top + bg_margin
 
-	Signals.add_log_msg("Window Size %s" % DisplayServer.window_get_size())
-	Signals.add_log_msg("Safe Area %s" % safe_area)
-	Signals.add_log_msg("Safe Area Top %s" % safe_area_top)
-	Signals.add_log_msg("Top Bar position %s" % top_bar.position)
-	Signals.add_log_msg("Top Bar BG size %s" % top_bar_bg.size)
+	MyUtilities.add_log_msg("Window Size %s" % DisplayServer.window_get_size())
+	MyUtilities.add_log_msg("Safe Area %s" % safe_area)
+	MyUtilities.add_log_msg("Safe Area Top %s" % safe_area_top)
+	MyUtilities.add_log_msg("Top Bar position %s" % top_bar.position)
+	MyUtilities.add_log_msg("Top Bar BG size %s" % top_bar_bg.size)
 
 
 func set_score(score: int) -> void:
