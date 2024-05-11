@@ -3,7 +3,7 @@ extends CanvasLayer
 signal start_game
 signal delete_level
 
-signal purchase_skin(skin_name: String)
+signal purchase_skin
 
 @export var fadeout_duration: float = 0.5
 @export var game_over_delay: float = 0.75
@@ -75,7 +75,8 @@ func _on_screen_button_pressed(button: ScreenButton) -> void:
 		"ShopBack":
 			change_screen(title_screen)
 		"ShopPurchaseSkin":
-			purchase_skin.emit("pirate")
+			Signals.add_log_msg("Initiating skin purchase")
+			purchase_skin.emit()
 
 
 func _on_toggle_console_pressed() -> void:

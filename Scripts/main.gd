@@ -16,8 +16,8 @@ func _ready() -> void:
 	game.pause_game.connect(_on_game_pause_game)
 
 	# IAP signals
-	iap_manager.unlock_new_skin.connect(_on_iap_manager_unlock_new_skin)
 	screens.purchase_skin.connect(_on_screens_purchase_skin)
+	iap_manager.unlock_new_skin.connect(_on_iap_manager_unlock_new_skin)
 
 
 func _on_start_game() -> void:
@@ -52,11 +52,11 @@ func _on_window_event(event: int) -> void:
 
 
 # IAP Signals
-func _on_iap_manager_unlock_new_skin(skin_name: String) -> void:
+func _on_screens_purchase_skin() -> void:
+	iap_manager.purchase_skin()
+
+
+func _on_iap_manager_unlock_new_skin() -> void:
 	if not game.new_skin_unlocked:
 		game.new_skin_unlocked = true
-		print("New skin unlocked: %s" % skin_name)
-
-
-func _on_screens_purchase_skin(skin_name: String) -> void:
-	iap_manager.purchase_skin(skin_name)
+		Signals.add_log_msg("New skin unlocked")
