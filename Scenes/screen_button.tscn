@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bxxp85jl3nyoc"]
 
-[ext_resource type="Script" path="res://Scripts/screen_button.gd" id="1_8ssi8"]
+[ext_resource type="Script" uid="uid://b86d8gqboehqa" path="res://Scripts/screen_button.gd" id="1_8ssi8"]
 
 [node name="ScreenButton" type="TextureButton" groups=["buttons"]]
 offset_right = 40.0

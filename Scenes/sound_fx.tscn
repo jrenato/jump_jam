@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b3vlxim25gm6f"]
 
-[ext_resource type="Script" path="res://Scripts/sound_fx.gd" id="1_e3ewr"]
+[ext_resource type="Script" uid="uid://cfy1iogc6qxnp" path="res://Scripts/sound_fx.gd" id="1_e3ewr"]
 
 [node name="SoundFX" type="Node"]
 process_mode = 3

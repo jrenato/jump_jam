@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ruo7ua7wlq6n"]
 
-[ext_resource type="Script" path="res://Scripts/iap_manager.gd" id="1_4acfa"]
+[ext_resource type="Script" uid="uid://b5f8daw1hjdm5" path="res://Scripts/iap_manager.gd" id="1_4acfa"]
 
 [node name="IAPManager" type="Node"]
 script = ExtResource("1_4acfa")

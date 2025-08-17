@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://d0xa688kj6ryl"]
 
-[ext_resource type="Script" path="res://Scripts/base_screen.gd" id="1_070t6"]
+[ext_resource type="Script" uid="uid://ct02qrum47620" path="res://Scripts/base_screen.gd" id="1_070t6"]
 [ext_resource type="Texture2D" uid="uid://daly78lhqvcrg" path="res://Assets/Textures/UI/BigLogo.png" id="1_vngul"]
 [ext_resource type="PackedScene" uid="uid://bxxp85jl3nyoc" path="res://Scenes/screen_button.tscn" id="2_atj08"]
 [ext_resource type="Texture2D" uid="uid://cfylyh74rao5k" path="res://Assets/Textures/UI/PlayBtn.png" id="3_58dbn"]
@@ -44,8 +44,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cbgc4"]
 _data = {
-"RESET": SubResource("Animation_774so"),
-"animate_play_button": SubResource("Animation_pojss")
+&"RESET": SubResource("Animation_774so"),
+&"animate_play_button": SubResource("Animation_pojss")
 }
 
 [node name="TitleScreen" type="Control"]
